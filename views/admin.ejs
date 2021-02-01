@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ecommerce website. updated at 201903281012." />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>shortener url test</title>
+</head>
+<body>
+    <h1>admin page</h1>
+    <form action='/api/url/delete' method="POST">
+        <label for="longUrl">delete key</label>
+        <input placeholder="shorten url" type="text" name="shortUrl" id="shortUrl">
+        <button type="submit">delete</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Full URL</th>
+                <th>Short URL</th>
+                <th>add time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% url.forEach(url => {%>
+                <tr>
+                    <td><a href="<%= url.longUrl %>"><%= url.longUrl %></a></td>
+                    <td><a href="<%= url.shortUrl %>"><%= url.shortUrl %></a></td>
+                    <td><%= url.date %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
