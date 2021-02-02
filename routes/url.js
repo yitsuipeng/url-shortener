@@ -1,23 +1,25 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
+const axios = require('axios');
 
 const validUrl = require('valid-url');
 const shortid = require('shortid');
 
 const Url = require('../models/Url');
-const {setCache,delCache} = require('../db')
+const {setCache,delCache} = require('../db');
 
 router.post('/shorten', async (req, res) => {
 
     const { longUrl } = req.body;
     const baseUrl = 'http://54.150.14.134';
+    const { status } = await axios.get(longUrl);
 
     // create url code
     const urlCode = randomString(8);
 
     // check long url
-    if(validUrl.isUri(longUrl) && isUrlValid(longUrl)===true) {
+    if(status===200) {
         try{
             let url = await Url.findOne({longUrl});
 
