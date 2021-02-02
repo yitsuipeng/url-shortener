@@ -14,7 +14,7 @@ router.post('/shorten', async (req, res) => {
     const baseUrl = 'http://54.150.14.134';
 
     // create url code
-    const urlCode = shortid.generate();
+    const urlCode = randomString(8);
 
     // check long url
     if(validUrl.isUri(longUrl) && isUrlValid(longUrl)===true) {
@@ -24,7 +24,7 @@ router.post('/shorten', async (req, res) => {
             if(url){
                 res.status(200).json({shortenUrl : url.shortUrl});
             } else {
-                const shortUrl = baseUrl + '/' + randomString(8);
+                const shortUrl = baseUrl + '/' + urlCode;
                 url = new Url({
                     longUrl,
                     shortUrl,
@@ -83,6 +83,6 @@ function randomString(digits){
     }
     return text;
   
-}
+  }
 
 module.exports = router;
