@@ -10,7 +10,7 @@ router.get('/admin', async (req, res) => {
     res.render('admin',{url:url});
 });
 
-router.get('/:code', async(req,res)=>{
+router.get('/:code', async(req, res)=>{
     try{
         // check redis
         let result =  await getCache(req.params.code);

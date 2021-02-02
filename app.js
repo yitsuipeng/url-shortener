@@ -9,30 +9,14 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: false}));
 app.use(express.json({extended: false}));
 
-app.use('/',require('./routes/index'));
+// 創建短網址連結
 app.use('/api/url',require('./routes/url'));
-
-// 小鮮肉教學
+// 進入短網址連結
+app.use('/',require('./routes/index'));
 
 app.get('/', async (req, res) => {
-    // const shortUrls = await ShortUrl.find();
     res.render('index');
 });
-
-// app.post('/shortUrls', async(req, res) => {
-//     await ShortUrl.create({full: req.body.fullUrl});
-//     res.redirect('/');
-// });
-
-// app.get('/:shortUrl', async(req, res) => {
-//     const shortUrl = await ShortUrl.findOne({short: req.params.shortUrl});
-//     if(shortUrl == null) return res.sendStatus(404);
-
-//     shortUrl.clicks++
-//     shortUrl.save()
-
-//     res.redirect(shortUrl.full);
-// });
 
 app.listen(5000, () => {
     console.log('port: 5000');
