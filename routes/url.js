@@ -11,7 +11,7 @@ const {setCache,delCache} = require('../db')
 router.post('/shorten', async (req, res) => {
 
     const { longUrl } = req.body;
-    const baseUrl = 'http://'+req.hostname+':5000';
+    const baseUrl = 'http://54.150.14.134';
 
     // create url code
     const urlCode = shortid.generate();
@@ -33,7 +33,7 @@ router.post('/shorten', async (req, res) => {
                 });
                 await url.save();
                 await setCache(urlCode,longUrl);
-                res.status(200).json(url);
+                res.status(200).send(shortUrl);
             }
         } catch (err) {
             console.error(err);
