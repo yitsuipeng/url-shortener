@@ -21,3 +21,5 @@ app.get('/', async (req, res) => {
 app.listen(5000, () => {
     console.log('port: 5000');
 });
+
+module.exports = {app};

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+// control develop / test
+const dbStatus = 'develop';
+
 const connectDB = async () => {
     try{
         await mongoose.connect(process.env.mongoURI,{
@@ -52,10 +55,12 @@ function delCache (key) {
     });
 }
 
+
 module.exports = {
     connectDB,
     setCache,
     getCache,
     delCache,
+    dbStatus
 };
 
