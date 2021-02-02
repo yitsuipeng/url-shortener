@@ -4,7 +4,6 @@ const router = express.Router();
 const axios = require('axios');
 
 const validUrl = require('valid-url');
-const shortid = require('shortid');
 
 const Url = require('../models/Url');
 const {setCache,delCache} = require('../db');
@@ -19,7 +18,7 @@ router.post('/shorten', async (req, res) => {
     const urlCode = randomString(8);
 
     // check long url
-    if(status===200) {
+    if(validUrl.isUri(longUrl) && status === 200) {
         try{
             let url = await Url.findOne({longUrl});
 
@@ -66,14 +65,6 @@ router.post('/delete', async (req, res) => {
         res.status(500).json('Server error');
     };
 });
-
-function isUrlValid(userInput) {
-    var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-    if(res == null)
-        return false;
-    else
-        return true;
-}
 
 function randomString(digits){
 
