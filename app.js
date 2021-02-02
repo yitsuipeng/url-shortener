@@ -10,9 +10,9 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json({extended: false}));
 
 // 創建短網址連結
-app.use('/api/url',require('./routes/url'));
+app.use('/api/url',require('./controllers/url'));
 // 進入短網址連結
-app.use('/',require('./routes/index'));
+app.use('/',require('./controllers/index'));
 
 app.get('/', async (req, res) => {
     res.render('index');
