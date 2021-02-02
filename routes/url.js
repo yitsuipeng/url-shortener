@@ -76,6 +76,6 @@ function randomString(digits){
     }
     return text;
   
-  }
+}
 
 module.exports = router;

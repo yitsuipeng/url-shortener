@@ -52,6 +52,10 @@ function delCache (key) {
     });
 }
 
-
-module.exports = {connectDB,setCache,getCache,delCache};
+module.exports = {
+    connectDB,
+    setCache,
+    getCache,
+    delCache,
+};
 
