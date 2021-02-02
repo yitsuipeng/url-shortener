@@ -17,14 +17,14 @@ router.post('/shorten', async (req, res) => {
     const urlCode = shortid.generate();
 
     // check long url
-    if(validUrl.isUri(longUrl)) {
+    if(validUrl.isUri(longUrl) && isUrlValid(longUrl)===true) {
         try{
             let url = await Url.findOne({longUrl});
 
             if(url){
-                res.json(url);
+                res.status(200).json({shortenUrl : url.shortUrl});
             } else {
-                const shortUrl = baseUrl + '/' + urlCode;
+                const shortUrl = baseUrl + '/' + randomString(8);
                 url = new Url({
                     longUrl,
                     shortUrl,
@@ -33,7 +33,7 @@ router.post('/shorten', async (req, res) => {
                 });
                 await url.save();
                 await setCache(urlCode,longUrl);
-                res.status(200).send(shortUrl);
+                res.status(200).send({shortenUrl : shortUrl});
             }
         } catch (err) {
             console.error(err);
@@ -64,5 +64,25 @@ router.post('/delete', async (req, res) => {
         res.status(500).json('Server error');
     };
 });
+
+function isUrlValid(userInput) {
+    var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    if(res == null)
+        return false;
+    else
+        return true;
+}
+
+function randomString(digits){
+
+    let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  
+    for (let i = 0; i < digits; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  
+}
 
 module.exports = router;
