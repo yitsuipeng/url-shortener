@@ -2,7 +2,6 @@
 demo page link: http://54.150.14.134/
 
 ## Tech Used
-#### 開始旅程
 - Redis
 - MongoDB
 - Node.js / Express
